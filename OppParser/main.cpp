@@ -53,7 +53,7 @@ int main()
 		}
 	}
 #endif
-
+#if 0
 	while (true) 
 	{
 		std::string line;
@@ -82,6 +82,22 @@ int main()
 		else 
 		{
 			std::cout << "No match\n";
+		}
+	}
+#endif
+	while (true) 
+	{
+		std::string line;
+		std::getline(std::cin, line);
+		Lexer lexer(line, NativeLanguageDialect::Cpp);
+		Parser parser(lexer);
+
+		std::vector<Token> scope;
+		scope = parser.TryGetScope(NativeLanguagePunctuationID::OpenCurly, NativeLanguagePunctuationID::ClosedCurly, false);
+		std::cout << "Scope : \n";
+		for (auto& token : scope) 
+		{
+			std::cout << token.value << "\n";
 		}
 	}
 }

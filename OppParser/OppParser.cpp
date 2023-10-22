@@ -651,6 +651,31 @@ namespace OPP_PARSER_NAMESPACE
 		return true;
 	}
 
+	std::vector<Token> Parser::TryGetScope(uint32_t begin_punctuation, uint32_t end_punctuation, bool jump_to_end)
+	{
+		auto& tok = m_tokens[m_cursor];
+		if (tok.type != TokenType::Punctuation || tok.punctuation_id != begin_punctuation)
+			return {};
+		uint32_t depth = 1;
+		size_t i;
+		for (i = m_cursor+1; i < m_tokens.size(); ++i) 
+		{
+			auto& t = m_tokens[i];
+			if (t.punctuation_id == begin_punctuation)
+				++depth;
+			else if (t.punctuation_id == end_punctuation)
+				--depth;
+			if (depth == 0)
+				break;
+		}
+		if (depth != 0)
+			return {};
+		std::vector<Token> result(m_tokens.begin() + m_cursor + 1, m_tokens.begin() + i);
+		if (jump_to_end)
+			m_cursor = i;
+		return result;
+	}
+
 	TokenMatchTemplate TokenMatchTemplate::MatchValue(ValueType type, std::string value)
 	{
 		TokenMatchTemplate t;
