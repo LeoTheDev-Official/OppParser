@@ -610,7 +610,12 @@ namespace OPP_PARSER_NAMESPACE
 		return Next(out);
 	}
 
-	bool Parser::TryMatch(const std::vector<TokenMatchTemplate>& match)
+	bool Parser::Valid()
+	{
+		return m_cursor < m_tokens.size();
+	}
+
+	bool Parser::TryMatch(const std::vector<TokenMatchTemplate>& match, size_t target_match)
 	{
 		if (m_cursor + match.size() > m_tokens.size())
 			return false;
@@ -642,6 +647,7 @@ namespace OPP_PARSER_NAMESPACE
 			if (!v)
 				return false;
 		}
+		m_cursor += target_match;
 		return true;
 	}
 

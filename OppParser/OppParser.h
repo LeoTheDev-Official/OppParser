@@ -305,8 +305,9 @@ namespace OPP_PARSER_NAMESPACE
 		bool Back(Token& out);
 		void Skip(size_t count = 1);
 		bool Skip(Token& out, size_t count = 1);
+		bool Valid();
 
-		bool TryMatch(const std::vector<TokenMatchTemplate>& match);
+		bool TryMatch(const std::vector<TokenMatchTemplate>& match, size_t target_match = 0);
 	private:
 		std::vector<Token> m_tokens;
 		size_t m_cursor = 0;
