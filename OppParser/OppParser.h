@@ -306,6 +306,7 @@ namespace OPP_PARSER_NAMESPACE
 		void Skip(size_t count = 1);
 		bool Skip(Token& out, size_t count = 1);
 		bool Valid();
+		bool Peek(Token& out);
 
 		bool TryMatch(const std::vector<TokenMatchTemplate>& match, size_t target_match = 0);
 		std::vector<Token> TryGetScope(uint32_t begin_punctuation, uint32_t end_punctuation, bool jump_to_end = false);

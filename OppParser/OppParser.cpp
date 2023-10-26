@@ -615,6 +615,14 @@ namespace OPP_PARSER_NAMESPACE
 		return m_cursor < m_tokens.size();
 	}
 
+	bool Parser::Peek(Token& out)
+	{
+		if (m_cursor >= m_tokens.size())
+			return false;
+		out = m_tokens[m_cursor];
+		return true;
+	}
+
 	bool Parser::TryMatch(const std::vector<TokenMatchTemplate>& match, size_t target_match)
 	{
 		if (m_cursor + match.size() > m_tokens.size())
